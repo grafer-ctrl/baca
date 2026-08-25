@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Belajar Membaca 2 Suku Kata - PAUD & TK</title>
+    
+    <!-- Google Fonts Ramah Anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #FF5E7E;
+            --secondary: #4D96FF;
+            --yellow: #FFD93D;
+            --green: #2ECC71;
+            --purple: #8B5CF6;
+            --bg-color: #F8FBFF;
+            --shadow-btn: 0 5px 0 rgba(0,0,0,0.12);
+            --shadow-btn-active: 0 1px 0 rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E2EDF9 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* NAVIGASI ATAS */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: #FFFFFF;
+            border: 2px solid #DCE6F2;
+            padding: 8px 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #4A5568;
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.1s ease;
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-btn.home {
+            background: #FFF3F6;
+            border-color: #FFCCD8;
+            color: #FF3366;
+        }
+
+        /* SLOT IKLAN AUTO-HIDE */
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .ad-container:empty {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* PROGRESS BAR */
+        .progress-section {
+            background: #FFFFFF;
+            border: 2px solid #E2EDF9;
+            border-radius: 16px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748B;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #E2E8F0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 3.33%;
+            background: linear-gradient(90deg, #FF5E7E, #FFD93D, #2ECC71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* SLIDE CARD UTAMA */
+        .slide-card {
+            background: #FFFFFF;
+            border: 3.5px solid #E2EDF9;
+            border-radius: 28px;
+            padding: 24px 16px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            min-height: 310px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .slide-card:active {
+            transform: scale(0.98);
+        }
+
+        .slide-emoji {
+            font-size: 4.8rem;
+            line-height: 1;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* PECAHAN SUKU KATA */
+        .syllable-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .suku-badge {
+            background: #FFF0F3;
+            border: 2.5px solid #FFCCD8;
+            color: #FF3366;
+            font-size: 2.1rem;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 16px;
+            box-shadow: 0 4px 0 rgba(255, 51, 102, 0.12);
+        }
+
+        .suku-badge.blue {
+            background: #F0F6FF;
+            border-color: #CCE0FF;
+            color: #2575FC;
+            box-shadow: 0 4px 0 rgba(37, 117, 252, 0.12);
+        }
+
+        .plus-divider {
+            font-size: 1.6rem;
+            color: #94A3B8;
+            font-weight: 800;
+        }
+
+        /* KATA GABUNGAN UTUH */
+        .full-word-box {
+            background: #FFFBEB;
+            border: 2.5px dashed #FCD34D;
+            border-radius: 18px;
+            padding: 8px 24px;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #D97706;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 0 rgba(245, 158, 11, 0.15);
+        }
+
+        .tap-speak-hint {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* KONTROL SLIDE (SEBELUMNYA / BERIKUTNYA) */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr 1fr;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ctrl-btn {
+            border: none;
+            border-radius: 18px;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        .ctrl-btn:active {
+            transform: translateY(3px);
+            box-shadow: var(--shadow-btn-active);
+        }
+
+        .btn-prev {
+            background: #E2E8F0;
+            color: #475569;
+            box-shadow: 0 4px 0 #CBD5E1;
+        }
+
+        .btn-sound {
+            background: #2ECC71;
+            color: #FFFFFF;
+            box-shadow: 0 4px 0 #27AE60;
+        }
+
+        .btn-next {
+            background: #4D96FF;
+            color: #FFFFFF;
+            box-shadow: 0 4px 0 #2575FC;
+        }
+
+        /* MODAL SELESAI */
+        .celebration-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .celebration-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: popIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9AA8BA;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAVIGASI KEMBALI KE MENU UTAMA -->
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn home">
+                <span>🏠</span> Menu Utama
+            </a>
+            <span style="font-size: 0.85rem; font-weight: 800; color: #64748B;">✨ 2 Suku Kata</span>
+        </nav>
+
+        <!-- SLOT IKLAN ATAS (Auto-Hide) -->
+        <div id="ad-top" class="ad-container"></div>
+
+        <!-- PROGRESS BAR SOAL -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>Latihan Membaca</span>
+                <span id="counter-text">Soal 1 / 30</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE CARD (Sentuh untuk bersuara) -->
+        <main class="slide-card" id="slide-card" onclick="speakCurrentWord()">
+            <div class="slide-emoji" id="word-emoji">🙋</div>
+            
+            <div class="syllable-wrap">
+                <span class="suku-badge" id="suku-1">sa</span>
+                <span class="plus-divider">+</span>
+                <span class="suku-badge blue" id="suku-2">ya</span>
+            </div>
+
+            <div class="full-word-box" id="full-word">
+                saya
+            </div>
+
+            <div class="tap-speak-hint">
+                <span>🔊</span> Sentuh kartu untuk mendengar ejaan
+            </div>
+        </main>
+
+        <!-- TOMBOL KONTROL SLIDE -->
+        <div class="controls-grid">
+            <button class="ctrl-btn btn-prev" onclick="prevSlide()">
+                <span>◀️</span> Mundur
+            </button>
+            <button class="ctrl-btn btn-sound" onclick="speakCurrentWord()">
+                <span>🔊</span> Putar Suara
+            </button>
+            <button class="ctrl-btn btn-next" onclick="nextSlide()">
+                Lanjut <span>▶️</span>
+            </button>
+        </div>
+
+        <!-- SLOT IKLAN BAWAH (Auto-Hide) -->
+        <div id="ad-bottom" class="ad-container"></div>
+
+        <footer>
+            <p>Belajar Membaca 2 Suku Kata &copy; 2026</p>
+        </footer>
+    </div>
+
+    <!-- MODAL SELESAI / CELEBRATION -->
+    <div class="celebration-overlay" id="celebration-modal">
+        <div class="celebration-card">
+            <div style="font-size: 4rem;">🏆🎉</div>
+            <h2 style="color: #FF3366; font-size: 1.6rem;">HEBAT SEKALI!</h2>
+            <p style="color: #64748B; font-size: 0.95rem;">Kamu telah berhasil membaca seluruh 30 kata dengan sangat pintar!</p>
+            <div style="display: flex; gap: 8px; width: 100%; margin-top: 6px;">
+                <button class="ctrl-btn btn-prev" style="flex: 1;" onclick="restartSlides()">
+                    🔄 Ulangi
+                </button>
+                <a href="index.html" class="ctrl-btn btn-sound" style="flex: 1; text-decoration: none;">
+                    🏠 Menu Utama
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATABASE 30 KATA 2 SUKU KATA & JAVASCRIPT SLIDE -->
+    <script>
+        const wordsData = [
+            { s1: "sa", s2: "ya", word: "saya", emoji: "🙋", spell: "s... a... sa... y... a... ya... dibaca... saya!" },
+            { s1: "ma", s2: "kan", word: "makan", emoji: "🍚", spell: "m... a... ma... k... a... n... kan... dibaca... makan!" },
+            { s1: "bo", s2: "la", word: "bola", emoji: "⚽", spell: "b... o... bo... l... a... la... dibaca... bola!" },
+            { s1: "bu", s2: "ku", word: "buku", emoji: "📚", spell: "b... u... bu... k... u... ku... dibaca... buku!" },
+            { s1: "ma", s2: "ma", word: "mama", emoji: "👩", spell: "m... a... ma... m... a... ma... dibaca... mama!" },
+            { s1: "pa", s2: "pa", word: "papa", emoji: "👨", spell: "p... a... pa... p... a... pa... dibaca... papa!" },
+            { s1: "ku", s2: "da", word: "kuda", emoji: "🐴", spell: "k... u... ku... d... a... da... dibaca... kuda!" },
+            { s1: "ka", s2: "ki", word: "kaki", emoji: "🦶", spell: "k... a... ka... k... i... ki... dibaca... kaki!" },
+            { s1: "ma", s2: "ta", word: "mata", emoji: "👀", spell: "m... a... ma... t... a... ta... dibaca... mata!" },
+            { s1: "gi", s2: "gi", word: "gigi", emoji: "🦷", spell: "g... i... gi... g... i... gi... dibaca... gigi!" },
+            { s1: "ba", s2: "ju", word: "baju", emoji: "👕", spell: "b... a... ba... j... u... ju... dibaca... baju!" },
+            { s1: "to", s2: "pi", word: "topi", emoji: "🧢", spell: "t... o... to... p... i... pi... dibaca... topi!" },
+            { s1: "ro", s2: "ti", word: "roti", emoji: "🍞", spell: "r... o... ro... t... i... ti... dibaca... roti!" },
+            { s1: "su", s2: "su", word: "susu", emoji: "🥛", spell: "s... u... su... s... u... su... dibaca... susu!" },
+            { s1: "ma", s2: "du", word: "madu", emoji: "🍯", spell: "m... a... ma... d... u... du... dibaca... madu!" },
+            { s1: "sa", s2: "pi", word: "sapi", emoji: "🐮", spell: "s... a... sa... p... i... pi... dibaca... sapi!" },
+            { s1: "me", s2: "ja", word: "meja", emoji: "🪑", spell: "m... e... me... j... a... ja... dibaca... meja!" },
+            { s1: "ka", s2: "yu", word: "kayu", emoji: "🪵", spell: "k... a... ka... y... u... yu... dibaca... kayu!" },
+            { s1: "pi", s2: "ta", word: "pita", emoji: "🎀", spell: "p... i... pi... t... a... ta... dibaca... pita!" },
+            { s1: "ta", s2: "li", word: "tali", emoji: "🪢", spell: "t... a... ta... l... i... li... dibaca... tali!" },
+            { s1: "ke", s2: "ju", word: "keju", emoji: "🧀", spell: "k... e... ke... j... u... ju... dibaca... keju!" },
+            { s1: "ce", s2: "ri", word: "ceri", emoji: "🍒", spell: "c... e... ce... r... i... ri... dibaca... ceri!" },
+            { s1: "la", s2: "bu", word: "labu", emoji: "🎃", spell: "l... a... la... b... u... bu... dibaca... labu!" },
+            { s1: "sa", s2: "wi", word: "sawi", emoji: "🥬", spell: "s... a... sa... w... i... wi... dibaca... sawi!" },
+            { s1: "ba", s2: "tu", word: "batu", emoji: "🪨", spell: "b... a... ba... t... u... tu... dibaca... batu!" },
+            { s1: "gu", s2: "la", word: "gula", emoji: "🍬", spell: "g... u... gu... l... a... la... dibaca... gula!" },
+            { s1: "ka", s2: "ca", word: "kaca", emoji: "🪞", spell: "k... a... ka... c... a... ca... dibaca... kaca!" },
+            { s1: "ru", s2: "sa", word: "rusa", emoji: "🦌", spell: "r... u... ru... s... a... sa... dibaca... rusa!" },
+            { s1: "na", s2: "ga", word: "naga", emoji: "🐉", spell: "n... a... na... g... a... ga... dibaca... naga!" },
+            { s1: "pa", s2: "ku", word: "paku", emoji: "🔩", spell: "p... a... pa... k... u... ku... dibaca... paku!" }
+        ];
+
+        let currentIndex = 0;
+
+        const emojiEl = document.getElementById("word-emoji");
+        const suku1El = document.getElementById("suku-1");
+        const suku2El = document.getElementById("suku-2");
+        const fullWordEl = document.getElementById("full-word");
+        const counterText = document.getElementById("counter-text");
+        const progressFill = document.getElementById("progress-fill");
+
+        function updateSlide() {
+            const item = wordsData[currentIndex];
+            emojiEl.textContent = item.emoji;
+            suku1El.textContent = item.s1;
+            suku2El.textContent = item.s2;
+            fullWordEl.textContent = item.word;
+
+            counterText.textContent = `Soal ${currentIndex + 1} / ${wordsData.length}`;
+            progressFill.style.width = `${((currentIndex + 1) / wordsData.length) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentIndex < wordsData.length - 1) {
+                currentIndex++;
+                updateSlide();
+                speakCurrentWord();
+            } else {
+                showCelebration();
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlide();
+                speakCurrentWord();
+            }
+        }
+
+        function speakCurrentWord() {
+            const item = wordsData[currentIndex];
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(item.spell);
+            utterance.lang = 'id-ID';
+            utterance.rate = 0.82;
+            utterance.pitch = 1.15;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showCelebration() {
+            document.getElementById("celebration-modal").style.display = "flex";
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance("Horeee! Selamat! Kamu hebat sekali sudah berhasil membaca 30 kata!");
+                u.lang = 'id-ID';
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        function restartSlides() {
+            document.getElementById("celebration-modal").style.display = "none";
+            currentIndex = 0;
+            updateSlide();
+            speakCurrentWord();
+        }
+
+        // DUKUNGAN GESTUR GESER LAYAR HP (TOUCH SWIPE)
+        let touchstartX = 0;
+        let touchendX = 0;
+        const slideCard = document.getElementById("slide-card");
+
+        slideCard.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        slideCard.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, {passive: true});
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) nextSlide(); // Geser Kiri -> Lanjut
+            if (touchendX > touchstartX + 50) prevSlide(); // Geser Kanan -> Mundur
+        }
+
+        // Tampilkan slide pertama saat halaman dibuka
+        updateSlide();
+    </script>
+</body>
+</html>
