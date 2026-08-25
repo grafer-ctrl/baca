@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Belajar Membaca Anak PAUD & TK</title>
+    
+    <!-- Google Fonts Ramah Anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #FF5E7E;
+            --secondary: #4D96FF;
+            --yellow: #FFD93D;
+            --green: #6BCB77;
+            --purple: #9B59B6;
+            --orange: #FF9F45;
+            --bg-color: #F8FBFF;
+            --card-shadow: 0 6px 0px rgba(0,0,0,0.12);
+            --card-active-shadow: 0 2px 0px rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E2EDF9 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 6px 0;
+        }
+
+        .main-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #FF5277;
+            text-shadow: 2px 2px 0px #FFE1E8;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* SLOT IKLAN OTOMATIS TERSEMBUNYI JIKA KOSONG */
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        /* Jika tidak ada iklan di dalamnya, sembunyikan total */
+        .ad-container:empty {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* MENU KATEGORI ATAS */
+        .category-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .cat-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            line-height: 1.1;
+        }
+
+        .cat-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+        }
+
+        .btn-huruf   { background: #FF5E7E; }
+        .btn-hitung  { background: #4D96FF; }
+        .btn-hijaiyah{ background: #6BCB77; }
+        .btn-menulis { background: #FF9F45; }
+
+        /* GRID HURUF A-Z */
+        .letter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 kolom pas di HP */
+            gap: 10px;
+        }
+
+        @media (min-width: 480px) {
+            .letter-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 12px;
+            }
+        }
+
+        /* KARTU HURUF */
+        .letter-card {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            text-decoration: none;
+            background: #FFFFFF;
+            border: 3px solid #E8F0FE;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            position: relative;
+        }
+
+        .letter-card:active {
+            transform: translateY(4px);
+            box-shadow: var(--card-active-shadow);
+        }
+
+        .letter-char {
+            font-size: 2.3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .letter-sub {
+            font-size: 0.75rem;
+            font-weight: 700;
+            opacity: 0.55;
+            margin-top: 2px;
+        }
+
+        /* WARNA KARTU */
+        .c-red    { color: #FF477E; border-color: #FFDEE9; background: #FFF7F9; }
+        .c-blue   { color: #2575FC; border-color: #D3E4FF; background: #F4F8FF; }
+        .c-green  { color: #2ECC71; border-color: #D5F5E3; background: #F6FCF8; }
+        .c-orange { color: #FF8800; border-color: #FFE6CC; background: #FFF9F4; }
+        .c-purple { color: #9B51E0; border-color: #EBDCF9; background: #FAF6FD; }
+        .c-teal   { color: #00B4D8; border-color: #CBF3FA; background: #F2FCFE; }
+
+        /* FOOTER */
+        footer {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9AA8BA;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER JUDUL -->
+        <header>
+            <h1 class="main-title">🌟 BELAJAR MEMBACA 🌟</h1>
+        </header>
+
+        <!-- SLOT IKLAN ATAS (Otomatis Sembunyi sampai Anda menempel script iklan di dalamnya) -->
+        <div id="ad-top" class="ad-container"></div>
+
+        <!-- TOMBOL KATEGORI LAINNYA -->
+        <nav class="category-nav">
+            <a href="index.html" class="cat-btn btn-huruf">
+                <span>🔤</span>
+                <span>BACA HURUF</span>
+            </a>
+            <a href="berhitung.html" class="cat-btn btn-hitung">
+                <span>🔢</span>
+                <span>BERHITUNG</span>
+            </a>
+            <a href="hijaiyah.html" class="cat-btn btn-hijaiyah">
+                <span>🌙</span>
+                <span>HIJAIYAH</span>
+            </a>
+            <a href="menulis.html" class="cat-btn btn-menulis">
+                <span>✏️</span>
+                <span>MENULIS</span>
+            </a>
+        </nav>
+
+        <!-- GRID HURUF A SAMPAI Z -->
+        <main class="letter-grid" id="alphabet-grid"></main>
+
+        <!-- SLOT IKLAN BAWAH (Otomatis Sembunyi sampai Anda menempel script iklan di dalamnya) -->
+        <div id="ad-bottom" class="ad-container"></div>
+
+        <footer>
+            <p>Belajar Membaca PAUD & TK &copy; 2025</p>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT GENERATOR HURUF A-Z -->
+    <script>
+        const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+        const colors = ['c-red', 'c-blue', 'c-green', 'c-orange', 'c-purple', 'c-teal'];
+        const grid = document.getElementById("alphabet-grid");
+
+        letters.forEach((char, index) => {
+            const colorClass = colors[index % colors.length];
+            const upperChar = char.toUpperCase();
+            
+            const card = document.createElement("a");
+            card.href = `huruf-${char}.html`; // Mengarah ke huruf-a.html, huruf-b.html, dst.
+            card.className = `letter-card ${colorClass}`;
+            
+            card.innerHTML = `
+                <span class="letter-char">${char}</span>
+                <span class="letter-sub">${upperChar}</span>
+            `;
+            
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
