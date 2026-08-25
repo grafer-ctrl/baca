@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Belajar Membaca Huruf A - PAUD & TK</title>
+    
+    <!-- Google Fonts Ramah Anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red-vowel: #FF3366;
+            --blue-word: #2575FC;
+            --yellow: #FFD93D;
+            --green: #2ECC71;
+            --bg-color: #F8FBFF;
+            --shadow-btn: 0 5px 0 rgba(0,0,0,0.12);
+            --shadow-btn-active: 0 1px 0 rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E2EDF9 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* NAVIGASI ATAS */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: #FFFFFF;
+            border: 2px solid #DCE6F2;
+            padding: 8px 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #4A5568;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.1s ease;
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-btn.home {
+            background: #FFF3F6;
+            border-color: #FFCCD8;
+            color: #FF3366;
+        }
+
+        /* SLOT IKLAN AUTO-HIDE (Otomatis lenyap jika belum diisi) */
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .ad-container:empty {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* HURUF UTAMA (HERO BOX) */
+        .hero-letter-box {
+            background: #FFFFFF;
+            border: 3px solid #FFDEE9;
+            border-radius: 24px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 0 rgba(255, 51, 102, 0.15);
+            cursor: pointer;
+            transition: transform 0.12s ease;
+        }
+
+        .hero-letter-box:active {
+            transform: scale(0.96);
+        }
+
+        .hero-char {
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: var(--red-vowel);
+            line-height: 1;
+        }
+
+        .tap-hint {
+            font-size: 0.8rem;
+            color: #8C9BAE;
+            margin-top: 4px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* AREA LATIHAN MEMBACA */
+        .reading-board {
+            background: #FFFFFF;
+            border-radius: 24px;
+            border: 3px solid #E4EDF8;
+            padding: 16px 14px;
+            box-shadow: var(--shadow-btn);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .board-title {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7B8A9E;
+            font-weight: 700;
+        }
+
+        /* BARIS KATA (3 KOLOM) */
+        .word-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        /* KARTU KATA */
+        .word-card {
+            background: #F8FBFF;
+            border: 2.5px solid #D7E5F6;
+            border-radius: 16px;
+            padding: 12px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.65rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            user-select: none;
+            transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+        }
+
+        .word-card:active, .word-card.speaking {
+            transform: translateY(3px);
+            box-shadow: var(--shadow-btn-active);
+            background: #FFF9DB;
+            border-color: #FFD43B;
+        }
+
+        /* WARNA HURUF */
+        .color-vowel {
+            color: var(--red-vowel);
+        }
+
+        .color-word {
+            color: var(--blue-word);
+        }
+
+        /* KOTAK RANGKUMAN BAWAH */
+        .summary-box {
+            background: #FFF9F4;
+            border: 3px solid #FFE3CC;
+            border-radius: 20px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 4px 0 rgba(255, 159, 69, 0.15);
+            cursor: pointer;
+        }
+
+        .summary-item {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        /* TOMBOL PUTAR SEMUA */
+        .play-all-btn {
+            background: #2ECC71;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #27AE60;
+            cursor: pointer;
+        }
+
+        .play-all-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #27AE60;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9AA8BA;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAVIGASI ATAS -->
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn home">
+                <span>🏠</span> Menu Utama
+            </a>
+            <a href="huruf-b.html" class="nav-btn">
+                Lanjut Huruf B <span>👉</span>
+            </a>
+        </nav>
+
+        <!-- SLOT IKLAN ATAS (Auto-Hide) -->
+        <div id="ad-top" class="ad-container"></div>
+
+        <!-- HURUF UTAMA A -->
+        <div class="hero-letter-box" onclick="speakText('a', 'Ini huruf a ... bunyinya ... a')">
+            <span class="hero-char">a</span>
+            <div class="tap-hint">
+                <span>🔊</span> Ketuk untuk mendengar suara
+            </div>
+        </div>
+
+        <!-- PAPAN LATIHAN MEMBACA -->
+        <main class="reading-board">
+            <div class="board-title">👇 Sentuh kotak untuk mendengarkan bunyinya:</div>
+
+            <!-- BARIS 1: aa - aa - ba -->
+            <div class="word-row">
+                <div class="word-card color-vowel" onclick="speakWord(this, 'a a', 'Huruf a dan a ... dibaca ... a - a')">aa</div>
+                <div class="word-card color-vowel" onclick="speakWord(this, 'a a', 'Huruf a dan a ... dibaca ... a - a')">aa</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'ba', 'Huruf b dan a ... dibaca ... ba')">ba</div>
+            </div>
+
+            <!-- BARIS 2: aa - ba - ba -->
+            <div class="word-row">
+                <div class="word-card color-vowel" onclick="speakWord(this, 'a a', 'Huruf a dan a ... dibaca ... a - a')">aa</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'ba', 'Huruf b dan a ... dibaca ... ba')">ba</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'ba', 'Huruf b dan a ... dibaca ... ba')">ba</div>
+            </div>
+
+            <!-- BARIS 3: Variasi Kata (baba - aba - baa) -->
+            <div class="word-row">
+                <div class="word-card color-word" onclick="speakWord(this, 'baba', 'ba ... ba ... dibaca ... baba')">baba</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'aba', 'a ... ba ... dibaca ... aba')">aba</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'ba a', 'ba ... a ... dibaca ... ba-a')">baa</div>
+            </div>
+
+            <!-- BARIS 4: Latihan Kalimat Sederhana (ba - aba - baba) -->
+            <div class="word-row">
+                <div class="word-card color-word" onclick="speakWord(this, 'ba', 'b dan a ... dibaca ... ba')">ba</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'aba', 'a ... ba ... dibaca ... aba')">aba</div>
+                <div class="word-card color-word" onclick="speakWord(this, 'baba', 'ba ... ba ... dibaca ... baba')">baba</div>
+            </div>
+
+            <!-- RINGKASAN BAWAH: a - ba -->
+            <div class="summary-box" onclick="speakText('a ba', 'Mari baca bersama: huruf a ... dan ... suku kata ba')">
+                <span class="summary-item color-vowel">a</span>
+                <span style="font-size: 1.5rem; color: #CBD5E1;">➕</span>
+                <span class="summary-item color-word">ba</span>
+            </div>
+
+            <!-- TOMBOL PUTAR SEMUA -->
+            <button class="play-all-btn" onclick="playLessonSequence()">
+                <span>▶️</span> Putar Suara Pelajaran Ini
+            </button>
+        </main>
+
+        <!-- SLOT IKLAN BAWAH (Auto-Hide) -->
+        <div id="ad-bottom" class="ad-container"></div>
+
+        <footer>
+            <p>Belajar Membaca PAUD & TK &copy; 2025</p>
+        </footer>
+    </div>
+
+    <!-- SISTEM SUARA (WEB SPEECH API BAHASA INDONESIA) -->
+    <script>
+        function speakText(text, fullExplanation, onEndCallback) {
+            if (!('speechSynthesis' in window)) {
+                alert('Browser Anda belum mendukung suara otomatis.');
+                return;
+            }
+
+            window.speechSynthesis.cancel(); // Hentikan suara jika sedang berjalan
+
+            const message = fullExplanation || text;
+            const utterance = new SpeechSynthesisUtterance(message);
+            
+            utterance.lang = 'id-ID'; // Bahasa Indonesia
+            utterance.rate = 0.82;    // Kecepatan membaca santai dan jelas untuk anak
+            utterance.pitch = 1.15;   // Nada suara ramah dan ceria
+
+            if (onEndCallback) {
+                utterance.onend = onEndCallback;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakWord(element, word, explanation) {
+            element.classList.add('speaking');
+            speakText(word, explanation, () => {
+                element.classList.remove('speaking');
+            });
+        }
+
+        // Putar suara berurutan dari atas sampai selesai
+        function playLessonSequence() {
+            const sequence = [
+                "Ini huruf a ... bunyinya ... a",
+                "Baris satu: a - a ... a - a ... ba",
+                "Baris dua: a - a ... ba ... ba",
+                "Baris tiga: ba - ba ... a - ba ... ba - a",
+                "Hebat sekali! Kamu pintar membaca huruf a dan ba!"
+            ];
+
+            let index = 0;
+            function next() {
+                if (index < sequence.length) {
+                    speakText('', sequence[index], () => {
+                        index++;
+                        setTimeout(next, 500);
+                    });
+                }
+            }
+            next();
+        }
+    </script>
+</body>
+</html>
