@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Belajar Membaca Kalimat Pendek - PAUD & TK</title>
+    
+    <!-- Google Fonts Ramah Anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --secondary: #EC4899;
+            --yellow: #FFD93D;
+            --green: #10B981;
+            --blue: #2563EB;
+            --bg-color: #F8FBFF;
+            --shadow-btn: 0 5px 0 rgba(0,0,0,0.12);
+            --shadow-btn-active: 0 1px 0 rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E2EDF9 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* NAVIGASI ATAS */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: #FFFFFF;
+            border: 2px solid #DCE6F2;
+            padding: 8px 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #4A5568;
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.1s ease;
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-btn.home {
+            background: #F5F3FF;
+            border-color: #DDD6FE;
+            color: var(--primary);
+        }
+
+        /* SLOT IKLAN AUTO-HIDE */
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .ad-container:empty {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* PROGRESS BAR */
+        .progress-section {
+            background: #FFFFFF;
+            border: 2px solid #E2EDF9;
+            border-radius: 16px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748B;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #E2E8F0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 5%;
+            background: linear-gradient(90deg, #8B5CF6, #EC4899, #10B981);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* SLIDE CARD UTAMA */
+        .slide-card {
+            background: #FFFFFF;
+            border: 3.5px solid #E2EDF9;
+            border-radius: 28px;
+            padding: 22px 14px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            min-height: 330px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            text-align: center;
+        }
+
+        .slide-card:active {
+            transform: scale(0.98);
+        }
+
+        .slide-emoji {
+            font-size: 4.5rem;
+            line-height: 1;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: floatEmoji 2.2s infinite ease-in-out;
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        /* PECAHAN SUKU KATA / KATA */
+        .syllable-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            max-width: 100%;
+        }
+
+        .suku-chip {
+            background: #F5F3FF;
+            border: 2px solid #DDD6FE;
+            color: #7C3AED;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 14px;
+            box-shadow: 0 3px 0 rgba(124, 58, 237, 0.12);
+        }
+
+        .suku-chip.pink {
+            background: #FDF2F8;
+            border-color: #FBCFE8;
+            color: #DB2777;
+            box-shadow: 0 3px 0 rgba(219, 39, 119, 0.12);
+        }
+
+        .suku-chip.green {
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #059669;
+            box-shadow: 0 3px 0 rgba(5, 150, 105, 0.12);
+        }
+
+        /* KALIMAT UTUH */
+        .sentence-box {
+            background: #FFFBEB;
+            border: 2.5px dashed #FCD34D;
+            border-radius: 20px;
+            padding: 10px 18px;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #B45309;
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 0 rgba(245, 158, 11, 0.15);
+            max-width: 95%;
+        }
+
+        .tap-speak-hint {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+        }
+
+        /* KONTROL SLIDE */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr 1fr;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ctrl-btn {
+            border: none;
+            border-radius: 18px;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        .ctrl-btn:active {
+            transform: translateY(3px);
+            box-shadow: var(--shadow-btn-active);
+        }
+
+        .btn-prev {
+            background: #E2E8F0;
+            color: #475569;
+            box-shadow: 0 4px 0 #CBD5E1;
+        }
+
+        .btn-sound {
+            background: #10B981;
+            color: #FFFFFF;
+            box-shadow: 0 4px 0 #059669;
+        }
+
+        .btn-next {
+            background: #8B5CF6;
+            color: #FFFFFF;
+            box-shadow: 0 4px 0 #6D28D9;
+        }
+
+        /* MODAL SELESAI */
+        .celebration-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .celebration-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: popIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9AA8BA;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAVIGASI ATAS -->
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn home">
+                <span>🏠</span> Menu Utama
+            </a>
+            <span style="font-size: 0.85rem; font-weight: 800; color: #64748B;">📝 Kalimat Pendek</span>
+        </nav>
+
+        <!-- SLOT IKLAN ATAS (Auto-Hide) -->
+        <div id="ad-top" class="ad-container"></div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>Membaca Kalimat</span>
+                <span id="counter-text">Soal 1 / 20</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- SLIDE CARD UTAMA -->
+        <main class="slide-card" id="slide-card" onclick="speakCurrentSentence()">
+            <div class="slide-emoji" id="sentence-emoji">🧸</div>
+            
+            <!-- Kontainer Suku Kata / Kata Pecahan -->
+            <div class="syllable-container" id="chips-container"></div>
+
+            <!-- Kalimat Utuh -->
+            <div class="sentence-box" id="full-sentence">
+                Boneka
+            </div>
+
+            <div class="tap-speak-hint">
+                <span>🔊</span> Sentuh kartu untuk mendengar suara
+            </div>
+        </main>
+
+        <!-- KONTROL SLIDE -->
+        <div class="controls-grid">
+            <button class="ctrl-btn btn-prev" onclick="prevSlide()">
+                <span>◀️</span> Mundur
+            </button>
+            <button class="ctrl-btn btn-sound" onclick="speakCurrentSentence()">
+                <span>🔊</span> Putar Suara
+            </button>
+            <button class="ctrl-btn btn-next" onclick="nextSlide()">
+                Lanjut <span>▶️</span>
+            </button>
+        </div>
+
+        <!-- SLOT IKLAN BAWAH (Auto-Hide) -->
+        <div id="ad-bottom" class="ad-container"></div>
+
+        <footer>
+            <p>Belajar Membaca Kalimat Pendek &copy; 2026</p>
+        </footer>
+    </div>
+
+    <!-- MODAL SELESAI / CELEBRATION -->
+    <div class="celebration-overlay" id="celebration-modal">
+        <div class="celebration-card">
+            <div style="font-size: 4rem;">🏆🌟</div>
+            <h2 style="color: #8B5CF6; font-size: 1.6rem;">LUAR BIASA!</h2>
+            <p style="color: #64748B; font-size: 0.95rem;">Kamu sudah sangat pintar membaca kata panjang dan kalimat pendek!</p>
+            <div style="display: flex; gap: 8px; width: 100%; margin-top: 6px;">
+                <button class="ctrl-btn btn-prev" style="flex: 1;" onclick="restartSlides()">
+                    🔄 Ulangi
+                </button>
+                <a href="index.html" class="ctrl-btn btn-sound" style="flex: 1; text-decoration: none;">
+                    🏠 Menu Utama
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATABASE 20 SOAL & LOGIKA JAVASCRIPT -->
+    <script>
+        const sentenceData = [
+            {
+                chips: ["bo", "ne", "ka"],
+                text: "Boneka",
+                emoji: "🧸",
+                spell: "bo... ne... ka... dibaca... boneka!"
+            },
+            {
+                chips: ["se", "pa", "tu"],
+                text: "Sepatu",
+                emoji: "👟",
+                spell: "se... pa... tu... dibaca... sepatu!"
+            },
+            {
+                chips: ["ke", "re", "ta"],
+                text: "Kereta",
+                emoji: "🚂",
+                spell: "ke... re... ta... dibaca... kereta!"
+            },
+            {
+                chips: ["se", "pe", "da"],
+                text: "Sepeda",
+                emoji: "🚲",
+                spell: "se... pe... da... dibaca... sepeda!"
+            },
+            {
+                chips: ["ke", "la", "pa"],
+                text: "Kelapa",
+                emoji: "🥥",
+                spell: "ke... la... pa... dibaca... kelapa!"
+            },
+            {
+                chips: ["I-bu", "ma-sak"],
+                text: "Ibu masak",
+                emoji: "👩‍🍳",
+                spell: "Ibu... masak..."
+            },
+            {
+                chips: ["A-yah", "ker-ja"],
+                text: "Ayah kerja",
+                emoji: "👨‍💼",
+                spell: "Ayah... kerja..."
+            },
+            {
+                chips: ["Sa-ya", "su-ka", "ro-ti"],
+                text: "Saya suka roti",
+                emoji: "🍞",
+                spell: "Saya... suka... roti!"
+            },
+            {
+                chips: ["Bu-di", "ma-in", "bo-la"],
+                text: "Budi main bola",
+                emoji: "⚽",
+                spell: "Budi... main... bola!"
+            },
+            {
+                chips: ["A-dik", "mi-num", "su-su"],
+                text: "Adik minum susu",
+                emoji: "🥛",
+                spell: "Adik... minum... susu!"
+            },
+            {
+                chips: ["Ka-kak", "ba-ca", "bu-ku"],
+                text: "Kakak baca buku",
+                emoji: "📖",
+                spell: "Kakak... baca... buku!"
+            },
+            {
+                chips: ["Ku-cing", "la-ri", "ce-pat"],
+                text: "Kucing lari cepat",
+                emoji: "🐱",
+                spell: "Kucing... lari... cepat!"
+            },
+            {
+                chips: ["Bu-nga", "war-na", "me-rah"],
+                text: "Bunga warna merah",
+                emoji: "🌹",
+                spell: "Bunga... warna... merah!"
+            },
+            {
+                chips: ["Bu-rung", "ter-bang", "ting-gi"],
+                text: "Burung terbang tinggi",
+                emoji: "🕊️",
+                spell: "Burung... terbang... tinggi!"
+            },
+            {
+                chips: ["I-kan", "be-re-nang", "lu-cu"],
+                text: "Ikan berenang lucu",
+                emoji: "🐟",
+                spell: "Ikan... berenang... lucu!"
+            },
+            {
+                chips: ["Sa-ya", "sa-yang", "ma-ma"],
+                text: "Saya sayang mama",
+                emoji: "❤️",
+                spell: "Saya... sayang... mama!"
+            },
+            {
+                chips: ["A-pi", "pa-nas", "se-ka-li"],
+                text: "Api panas sekali",
+                emoji: "🔥",
+                spell: "Api... panas... sekali!"
+            },
+            {
+                chips: ["Ba-ju", "ba-ru", "war-na", "bi-ru"],
+                text: "Baju baru warna biru",
+                emoji: "👕",
+                spell: "Baju... baru... warna... biru!"
+            },
+            {
+                chips: ["Ma-ta-ha-ri", "ber-si-nar", "te-rang"],
+                text: "Matahari bersinar terang",
+                emoji: "☀️",
+                spell: "Matahari... bersinar... terang!"
+            },
+            {
+                chips: ["A-ku", "a-nak", "pin-tar", "dan", "he-bat"],
+                text: "Aku anak pintar dan hebat",
+                emoji: "🌟",
+                spell: "Aku... anak... pintar... dan... hebat!"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        const emojiEl = document.getElementById("sentence-emoji");
+        const chipsContainer = document.getElementById("chips-container");
+        const fullSentenceEl = document.getElementById("full-sentence");
+        const counterText = document.getElementById("counter-text");
+        const progressFill = document.getElementById("progress-fill");
+
+        const chipColors = ["", "pink", "green"];
+
+        function updateSlide() {
+            const item = sentenceData[currentIndex];
+            emojiEl.textContent = item.emoji;
+            fullSentenceEl.textContent = item.text;
+
+            // Render pecahan suku kata / kata
+            chipsContainer.innerHTML = "";
+            item.chips.forEach((chipText, i) => {
+                const span = document.createElement("span");
+                const colorClass = chipColors[i % chipColors.length];
+                span.className = `suku-chip ${colorClass}`.trim();
+                span.textContent = chipText;
+                chipsContainer.appendChild(span);
+            });
+
+            counterText.textContent = `Soal ${currentIndex + 1} / ${sentenceData.length}`;
+            progressFill.style.width = `${((currentIndex + 1) / sentenceData.length) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentIndex < sentenceData.length - 1) {
+                currentIndex++;
+                updateSlide();
+                speakCurrentSentence();
+            } else {
+                showCelebration();
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlide();
+                speakCurrentSentence();
+            }
+        }
+
+        function speakCurrentSentence() {
+            const item = sentenceData[currentIndex];
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(item.spell);
+            utterance.lang = 'id-ID';
+            utterance.rate = 0.82;
+            utterance.pitch = 1.15;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function showCelebration() {
+            document.getElementById("celebration-modal").style.display = "flex";
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance("Horeee! Selamat! Kamu hebat sekali sudah berhasil membaca semua kalimat pendek!");
+                u.lang = 'id-ID';
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        function restartSlides() {
+            document.getElementById("celebration-modal").style.display = "none";
+            currentIndex = 0;
+            updateSlide();
+            speakCurrentSentence();
+        }
+
+        // DUKUNGAN SWIPE TOUCH DI HP
+        let touchstartX = 0;
+        let touchendX = 0;
+        const slideCard = document.getElementById("slide-card");
+
+        slideCard.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        slideCard.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, {passive: true});
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) nextSlide(); // Geser Kiri -> Lanjut
+            if (touchendX > touchstartX + 50) prevSlide(); // Geser Kanan -> Mundur
+        }
+
+        // Render slide pertama
+        updateSlide();
+    </script>
+</body>
+</html>
