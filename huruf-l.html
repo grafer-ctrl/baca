@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Belajar Membaca Huruf L - PAUD & TK</title>
+    
+    <!-- Google Fonts Ramah Anak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-l: #6366F1;
+            --secondary-l: #4F46E5;
+            --accent-coral: #FF5E7E;
+            --yellow: #FFD93D;
+            --bg-color: #F8FBFF;
+            --shadow-btn: 0 5px 0 rgba(0,0,0,0.12);
+            --shadow-btn-active: 0 1px 0 rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#E2EDF9 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* NAVIGASI ATAS */
+        .top-nav {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: #FFFFFF;
+            border: 2px solid #DCE6F2;
+            padding: 8px 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #4A5568;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all 0.1s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-btn.home {
+            background: #EEF2FF;
+            border-color: #E0E7FF;
+            color: var(--primary-l);
+        }
+
+        /* SLOT IKLAN AUTO-HIDE */
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .ad-container:empty {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* HURUF UTAMA L (HERO BOX) */
+        .hero-letter-box {
+            background: #FFFFFF;
+            border: 3px solid #E0E7FF;
+            border-radius: 24px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 0 rgba(99, 102, 241, 0.15);
+            cursor: pointer;
+            transition: transform 0.12s ease;
+        }
+
+        .hero-letter-box:active {
+            transform: scale(0.96);
+        }
+
+        .hero-char {
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: var(--primary-l);
+            line-height: 1;
+        }
+
+        .tap-hint {
+            font-size: 0.8rem;
+            color: #8C9BAE;
+            margin-top: 4px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* AREA LATIHAN MEMBACA */
+        .reading-board {
+            background: #FFFFFF;
+            border-radius: 24px;
+            border: 3px solid #E4EDF8;
+            padding: 16px 14px;
+            box-shadow: var(--shadow-btn);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .board-title {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7B8A9E;
+            font-weight: 700;
+        }
+
+        /* BARIS KATA (3 KOLOM) */
+        .word-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        /* KARTU KATA */
+        .word-card {
+            background: #EEF2FF;
+            border: 2.5px solid #E0E7FF;
+            border-radius: 16px;
+            padding: 12px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--primary-l);
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            user-select: none;
+            transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+        }
+
+        .word-card:active, .word-card.speaking {
+            transform: translateY(3px);
+            box-shadow: var(--shadow-btn-active);
+            background: #FFF9DB;
+            border-color: #FFD43B;
+            color: #D97706;
+        }
+
+        /* Variasi warna kartu koral cerah */
+        .card-coral {
+            background: #FFF5F7;
+            border-color: #FFE0E6;
+            color: var(--accent-coral);
+        }
+
+        /* KOTAK RANGKUMAN BAWAH */
+        .summary-box {
+            background: #EEF2FF;
+            border: 3px solid #E0E7FF;
+            border-radius: 20px;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 4px 0 rgba(99, 102, 241, 0.15);
+            cursor: pointer;
+        }
+
+        .summary-item {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-l);
+        }
+
+        /* TOMBOL PUTAR SEMUA */
+        .play-all-btn {
+            background: #6366F1;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #4F46E5;
+            cursor: pointer;
+        }
+
+        .play-all-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #4F46E5;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9AA8BA;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAVIGASI 3 ARAH (Kembali ke K, Menu Utama, Lanjut ke M) -->
+        <nav class="top-nav">
+            <a href="huruf-k.html" class="nav-btn">
+                <span>👈</span> Huruf K
+            </a>
+            <a href="index.html" class="nav-btn home">
+                <span>🏠</span> Menu Utama
+            </a>
+            <a href="huruf-m.html" class="nav-btn">
+                Huruf M <span>👉</span>
+            </a>
+        </nav>
+
+        <!-- SLOT IKLAN ATAS (Auto-Hide) -->
+        <div id="ad-top" class="ad-container"></div>
+
+        <!-- HURUF UTAMA L -->
+        <div class="hero-letter-box" onclick="speakText('l', 'Ini huruf l ... bunyinya ... el')">
+            <span class="hero-char">l</span>
+            <div class="tap-hint">
+                <span>🔊</span> Ketuk untuk mendengar suara
+            </div>
+        </div>
+
+        <!-- PAPAN LATIHAN MEMBACA -->
+        <main class="reading-board">
+            <div class="board-title">👇 Sentuh kotak untuk mendengarkan bunyinya:</div>
+
+            <!-- BARIS 1: Suku Kata la - li - lu -->
+            <div class="word-row">
+                <div class="word-card" onclick="speakWord(this, 'la', 'l dan a ... dibaca ... la')">la</div>
+                <div class="word-card" onclick="speakWord(this, 'li', 'l dan i ... dibaca ... li')">li</div>
+                <div class="word-card" onclick="speakWord(this, 'lu', 'l dan u ... dibaca ... lu')">lu</div>
+            </div>
+
+            <!-- BARIS 2: Suku Kata le - lo - la -->
+            <div class="word-row">
+                <div class="word-card" onclick="speakWord(this, 'le', 'l dan e ... dibaca ... le')">le</div>
+                <div class="word-card" onclick="speakWord(this, 'lo', 'l dan o ... dibaca ... lo')">lo</div>
+                <div class="word-card" onclick="speakWord(this, 'la', 'l dan a ... dibaca ... la')">la</div>
+            </div>
+
+            <!-- BARIS 3: Gabungan Suku Kata (lala - lili - lulu) -->
+            <div class="word-row">
+                <div class="word-card card-coral" onclick="speakWord(this, 'lala', 'la ... la ... dibaca ... lala')">lala</div>
+                <div class="word-card card-coral" onclick="speakWord(this, 'lili', 'li ... li ... dibaca ... lili')">lili</div>
+                <div class="word-card card-coral" onclick="speakWord(this, 'lulu', 'lu ... lu ... dibaca ... lulu')">lulu</div>
+            </div>
+
+            <!-- BARIS 4: Variasi Kata Bermakna (bola - gula - laba) -->
+            <div class="word-row">
+                <div class="word-card card-coral" onclick="speakWord(this, 'bola', 'bo ... la ... dibaca ... bola')">bola</div>
+                <div class="word-card card-coral" onclick="speakWord(this, 'gula', 'gu ... la ... dibaca ... gula')">gula</div>
+                <div class="word-card card-coral" onclick="speakWord(this, 'laba', 'la ... ba ... dibaca ... laba')">laba</div>
+            </div>
+
+            <!-- RINGKASAN BAWAH: la li lu le lo -->
+            <div class="summary-box" onclick="speakText('la li lu le lo', 'Mari baca bersama: la ... li ... lu ... le ... lo')">
+                <span class="summary-item">la</span>
+                <span class="summary-item">li</span>
+                <span class="summary-item">lu</span>
+                <span class="summary-item">le</span>
+                <span class="summary-item">lo</span>
+            </div>
+
+            <!-- TOMBOL PUTAR SEMUA -->
+            <button class="play-all-btn" onclick="playLessonSequence()">
+                <span>▶️</span> Putar Suara Pelajaran Ini
+            </button>
+        </main>
+
+        <!-- SLOT IKLAN BAWAH (Auto-Hide) -->
+        <div id="ad-bottom" class="ad-container"></div>
+
+        <footer>
+            <p>Belajar Membaca PAUD & TK &copy; 2025</p>
+        </footer>
+    </div>
+
+    <!-- SISTEM SUARA (WEB SPEECH API BAHASA INDONESIA) -->
+    <script>
+        function speakText(text, fullExplanation, onEndCallback) {
+            if (!('speechSynthesis' in window)) {
+                alert('Browser Anda belum mendukung suara otomatis.');
+                return;
+            }
+
+            window.speechSynthesis.cancel(); // Hentikan suara jika sedang aktif
+
+            const message = fullExplanation || text;
+            const utterance = new SpeechSynthesisUtterance(message);
+            
+            utterance.lang = 'id-ID'; // Bahasa Indonesia
+            utterance.rate = 0.82;    // Kecepatan membaca santai dan jelas
+            utterance.pitch = 1.15;   // Nada suara ramah anak
+
+            if (onEndCallback) {
+                utterance.onend = onEndCallback;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakWord(element, word, explanation) {
+            element.classList.add('speaking');
+            speakText(word, explanation, () => {
+                element.classList.remove('speaking');
+            });
+        }
+
+        // Putar suara seluruh materi L secara berurutan
+        function playLessonSequence() {
+            const sequence = [
+                "Ini huruf l ... bunyinya ... el",
+                "Baris satu: l dan a ... la ... l dan i ... li ... l dan u ... lu",
+                "Baris dua: l dan e ... le ... l dan o ... lo ... l dan a ... la",
+                "Baris tiga: la - la ... li - li ... lu - lu",
+                "Baris empat: bo - la ... gu - la ... la - ba",
+                "Ringkasan: la ... li ... lu ... le ... lo",
+                "Hebat sekali! Kamu sudah sangat lancar membaca huruf L!"
+            ];
+
+            let index = 0;
+            function next() {
+                if (index < sequence.length) {
+                    speakText('', sequence[index], () => {
+                        index++;
+                        setTimeout(next, 500);
+                    });
+                }
+            }
+            next();
+        }
+    </script>
+</body>
+</html>
